@@ -83,11 +83,30 @@ class NodeParser:
         return Node(self.action_lst, self.presentation, self.next_nodes_ids, self.next_nodes_outputs)
 
 
-def parse(params, poss):
+def parse_parameters(par_list):
     parameters = dict()
     unaltered_parameters = dict()
     parameter_values = []
     unaltered_parameters_values = []
+    flag = True
+    for j in range(len(par_list)):
+        curr = par_list[j]
+        if curr[0] == '*':
+            flag = False
+            continue
+        curr = curr.split(' ')
+        if flag:
+            parameters[curr[0]] = j
+            parameter_values.append(int(curr[1]))
+            continue
+        unaltered_parameters[curr[0]] = j - len(parameters) - 1
+        unaltered_parameters_values.append(curr[1])
+    return parameters, unaltered_parameters, parameter_values, unaltered_parameters_values
+
+
+def parse(params, poss):
+    parameters = dict()
+    unaltered_parameters = dict()
     node_id = 0
     node_manager = []
     _next_nodes_ids = []
@@ -95,26 +114,14 @@ def parse(params, poss):
     parameters_ = Parameters([], [], [], [])
     main_state = State(parameters_, node_id, _next_nodes_ids, _next_nodes_outputs, node_manager)
     with open(params) as par:
-        flag = True
         par_list = par.read().split('\n')
-        for j in range(len(par_list)):
-            curr = par_list[j]
-            if curr[0] == '*':
-                flag = False
-                continue
-            curr = curr.split(' ')
-            if flag:
-                parameters[curr[0]] = j
-                parameter_values.append(int(curr[1]))
-                continue
-            unaltered_parameters[curr[0]] = j - len(parameters) - 1
-            unaltered_parameters_values.append(curr[1])
-    main_state.parameters = Parameters(parameter_values, list(parameters.keys()), unaltered_parameters_values,
-                                       list(unaltered_parameters.keys()))
+        construct_tuple = parse_parameters(par_list)
+    main_state.parameters = Parameters(construct_tuple[2], list(construct_tuple[0].keys()), construct_tuple[3],
+                                       list(construct_tuple[1].keys()))
     with open(poss) as pos:
         positions = pos.read().split('&')
         for node in positions:
-            parser = NodeParser(node, parameters, unaltered_parameters)
+            parser = NodeParser(node, construct_tuple[0], construct_tuple[1])
             current = parser.parse_node()
             node_manager.append(current)
         main_state.node_manager = node_manager
