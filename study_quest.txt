@@ -1,0 +1,68 @@
+0
+text:Today is the first day of studies. What should I spend it for
+next:1:I would go on the meeting with classmates and first lecture
+next:2:I will stay at home
+
+&1
+text:The first day of studies passed successfully
+action:relationship_with_classmates + 10
+action:mathematics + 10
+action:programming + 10
+next:3:Have rest before the next day
+
+&2
+text:I chilled out with neighbours. It was great
+action:relationship_with_neighbours + 10
+next:3:Have rest before the next day
+
+&3
+text:I need to do my first homework. What should I start with
+next:4:Programming
+next:5:Mathematics for sure
+optional:6:mathematics > 5:programming > 5:Try doing both
+
+&4
+text:There are some problems with math. What will I do
+action:programming + 10
+optional:7:relationship_with_classmates >= 10:Ask classmates for help
+optional:7:relationship_with_neighbours >= 10:Ask neighbours for help
+next:8:Work out everything by yourself
+next:9:I'll do it the next time
+
+&5
+text:There are some problems with programming. What should I do
+action:mathematics + 10
+optional:7:relationship_with_classmates > 5:Ask classmates for help
+optional:7:relationship_with_neighbours > 5:Ask neighbours for help
+next:8:Work out everything by yourself
+next:9:I'll do it the next time
+
+
+&6
+text:I like that feeling of freedom when everything is ready.
+action:mathematics + 10
+action:programming + 10
+next:10:Enjoy the moment
+
+&7
+text:I'm happy to have somebody who can help me.
+action:mathematics = 15
+action:programming = 15
+next:10:Enjoy the moment
+
+&8
+text:Oh well, one night without sleeping and all the lessons are done
+action:mathematics = 20
+action:programming = 20
+next:10:Enjoy the moment
+
+&9
+text:It wasn't the best idea to do everything at the last moment...
+next:10:Finish lessons, drinking coffee with your tears
+
+&10
+text:Compare your results with the best possible ones
+text:relationship with classmates - 10
+text:relationship_with_neighbours - 10
+text:mathematics - 20
+text:programming - 20
