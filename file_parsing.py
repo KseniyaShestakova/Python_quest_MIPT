@@ -150,6 +150,8 @@ class Parser:
 
         for j in range(len(par_list)):
             curr = par_list[j]
+            if len(curr) == 0:
+                continue
             if curr[0] == '*':
                 self.flag = False
                 continue

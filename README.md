@@ -1,5 +1,5 @@
-# Quest
-A small console quest. It makes you able to create a console quest with your own scenario writing file with the format similar to the ones presented in study_parameters.txt/ rules_parameters.txt (file with parameter description) and study_quest.txt / rules_quest.txt (file with the description of positions) 
+# Quest0
+A small console quest. It makes you able to create a console quest with your own scenario writing file with the format similar to the ones presented in parameters_study.txt/ rules_parameters.txt (file with parameter description) and study_quest.txt / rules_quest.txt (file with the description of positions) 
 
 ### Execution
 To run the quest:
@@ -7,7 +7,7 @@ To run the quest:
 git clone git@github.com:KseniyaShestakova/Python_quest_MIPT.git
 cd Python_quest_MIPT
 git checkout quest
-python3 main.py study_parameters.txt study_quest.txt
+python3 main.py parameters_study.txt study_quest.txt
 ```
 (for playing a quest about MIPT life)
 or 
@@ -35,5 +35,9 @@ pip3 install keyboard
 pip3 install random
 pip install os-sys
 ```
+Note: if you write 'sudo' before installing one of this libraries you should execute the project with 'sudo' also:
+'''
+sudo python3 main.py <parameters> <position>
+'''
 ### Something about playing the quest
 You can choose the right option in this quest pressing Ctrl and confirm your choice pressing Enter

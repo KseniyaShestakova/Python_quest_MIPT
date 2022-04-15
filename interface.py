@@ -47,7 +47,7 @@ class Outputer:
         self.output(arr_of_strings, 'cyan')
 
     def output_unaltered(self, string):
-        cprint(string, 'yellow')
+        cprint(string, 'yellow', attrs=['underline'])
 
     def output_tmp(self, string):
         cprint(string, 'green')
