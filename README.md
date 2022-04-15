@@ -1,4 +1,4 @@
-# Quest0
+# Quest
 A small console quest. It makes you able to create a console quest with your own scenario writing file with the format similar to the ones presented in parameters_study.txt/ rules_parameters.txt (file with parameter description) and study_quest.txt / rules_quest.txt (file with the description of positions) 
 
 ### Execution
