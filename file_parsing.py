@@ -34,6 +34,7 @@ class NodeParser:
         if len(code_string) < 2:
             raise Exception('Syntax error in the line: ' + initial)
         self.presentation.append(code_string[1])
+        
 
     def parse_action(self, code_string, initial):
         if len(code_string) < 2:
