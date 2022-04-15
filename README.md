@@ -4,7 +4,7 @@ A small console quest. It makes you able to create a console quest with your own
 ### Execution
 To run the quest:
 ```
-git@github.com:KseniyaShestakova/Python_quest_MIPT.git
+git clone git@github.com:KseniyaShestakova/Python_quest_MIPT.git
 cd Python_quest_MIPT
 git checkout quest
 python3 main.py study_parameters.txt study_quest.txt
