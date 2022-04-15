@@ -12,7 +12,7 @@ python3 main.py study_parameters.txt study_quest.txt
 (for playing a quest about MIPT life)
 or 
 ```
-cd Python_quest_MIPT
+cd Python_quest_MIPT/
 git checkout quest
 python3 main.py rules_parameters.txt rules_quest.txt
 ```
