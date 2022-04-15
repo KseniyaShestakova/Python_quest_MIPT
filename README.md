@@ -1,5 +1,5 @@
 # Quest
-A small console quest. It makes you able to create a console quest with your own scenario writing file with the format similar to the ones presented in parameters.txt / parameters_again.txt (file with parameter description) and positions.txt / nodes_again.txt (file with the description of positions) 
+A small console quest. It makes you able to create a console quest with your own scenario writing file with the format similar to the ones presented in study_parameters.txt/ rules_parameters.txt (file with parameter description) and study_quest.txt / rules_quest.txt (file with the description of positions) 
 
 ### Execution
 To run the quest:
@@ -12,7 +12,6 @@ python3 main.py study_parameters.txt study_quest.txt
 (for playing a quest about MIPT life)
 \\or 
 ```
-
 cd Python_quest_MIPT
 git checkout quest
 python3 main.py rules_parameters.txt rules_quest.txt
@@ -20,7 +19,6 @@ python3 main.py rules_parameters.txt rules_quest.txt
 (for playing a quest with rules explanation)
 \\or
 ```
-
 cd Python_quest_MIPT
 git checkout quest
 python3 main.py <my_parameters> <my_position>
