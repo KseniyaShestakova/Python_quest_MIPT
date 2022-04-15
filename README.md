@@ -5,7 +5,7 @@ A small console quest. It makes you able to create a console quest with your own
 To run the quest:
 ```
 git clone git@github.com:KseniyaShestakova/Python_quest_MIPT.git
-cd Python_quest_MIPT
+cd Python_quest_MIPT/
 git checkout quest
 python3 main.py parameters_study.txt study_quest.txt
 ```
@@ -19,7 +19,7 @@ python3 main.py rules_parameters.txt rules_quest.txt
 (for playing a quest with rules explanation)
 or
 ```
-cd Python_quest_MIPT
+cd Python_quest_MIPT/
 git checkout quest
 python3 main.py <my_parameters> <my_position>
 ```
