@@ -43,7 +43,7 @@ sudo python3 main.py <parameters> <position>
 ### Something about playing the quest
 You can choose the right option in this quest pressing Ctrl and confirm your choice pressing Enter!
 
-###Example
-[Screenshot from 2022-04-15 11-43-45](https://user-images.githubusercontent.com/91065721/163548416-7ab0d810-2cf1-4020-953a-90259cfa807c.png)
-[Screenshot from 2022-04-15 11-46-51](https://user-images.githubusercontent.com/91065721/163548875-d342edba-7ae2-4e30-953b-e600a50ca003.png)
+### Example
+![Screenshot from 2022-04-15 11-43-45](https://user-images.githubusercontent.com/91065721/163548416-7ab0d810-2cf1-4020-953a-90259cfa807c.png)
+![Screenshot from 2022-04-15 11-46-51](https://user-images.githubusercontent.com/91065721/163548875-d342edba-7ae2-4e30-953b-e600a50ca003.png)
 
