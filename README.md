@@ -40,4 +40,7 @@ Note: if you write 'sudo' before installing one of this libraries you should exe
 sudo python3 main.py <parameters> <position>
 ```
 ### Something about playing the quest
-You can choose the right option in this quest pressing Ctrl and confirm your choice pressing Enter
+You can choose the right option in this quest pressing Ctrl and confirm your choice pressing Enter![
+###Example
+Screenshot from 2022-04-15 11-43-45](https://user-images.githubusercontent.com/91065721/163548416-7ab0d810-2cf1-4020-953a-90259cfa807c.png)
+
