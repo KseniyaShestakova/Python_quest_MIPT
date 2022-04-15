@@ -36,8 +36,8 @@ pip3 install random
 pip install os-sys
 ```
 Note: if you write 'sudo' before installing one of this libraries you should execute the project with 'sudo' also:
-'''
+```
 sudo python3 main.py <parameters> <position>
-'''
+```
 ### Something about playing the quest
 You can choose the right option in this quest pressing Ctrl and confirm your choice pressing Enter
