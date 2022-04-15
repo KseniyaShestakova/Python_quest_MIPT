@@ -1,7 +1,16 @@
-import sys
-from termcolor import colored, cprint
 import keyboard
-import time
+import random
+from interface import *
+
+
+class NodeManager:
+    node_manager = []
+
+    def __init__(self, arr):
+        self.node_manager = arr
+
+    def get_node_by_id(self, identifier):
+        return self.node_manager[identifier]
 
 
 class Parameters:
@@ -60,6 +69,7 @@ class Node:
     def __init__(self, action_list_, presentation_, next_nodes_, next_nodes_output_):
         self.action_list = action_list_
         self.presentation = presentation_
+
         self.next_nodes = next_nodes_
         self.next_nodes_output = next_nodes_output_
 
@@ -70,8 +80,9 @@ class State:
     node_id = 0
     next_nodes_ids = []
     next_nodes_outputs = []
-    node_manager = []  # универсальный список, хранящий все ноды
+    node_manager = NodeManager([])  # универсальный список, хранящий все ноды
     end_of_the_game = False
+
     action_select = 0
     action_select_if = 1
     action_gt = 2
@@ -82,6 +93,10 @@ class State:
     action_inc = 7
     action_gt_unaltered = 8
     action_lt_unaltered = 9
+    action_random = 10
+
+    outputer = Outputer()
+    inputer = Inputer()
 
     def __init__(self, parameters_, node_id_, next_nodes_ids, next_nodes_outputs_, node_manager_):
         self.parameters = parameters_
@@ -112,54 +127,38 @@ class State:
         self.flag = (self.flag and int(self.parameters.get_unaltered(parameter_id)) < val)
 
     def add_node(self, node_identifier):
-        current_node = self.node_manager[self.node_id]
+        current_node = self.node_manager.get_node_by_id(self.node_id)
         self.next_nodes_ids.append(current_node.next_nodes[node_identifier])
         self.next_nodes_outputs.append(current_node.next_nodes_output[node_identifier])
 
+    def randomize(self, probability):
+        x = random.randint(0, probability)
+        if x == 0:
+            self.flag = True
+        else:
+            self.flag = False
+
     def show_parameters(self):
-        cprint("Current characteristics: ", 'magenta')
-        for i in range(len(self.parameters.parameter_value)):
-            cprint(self.parameters.get_name(i) + ": " + str(self.parameters.get(i)), 'magenta')
-        '''
-        counter = 0
-        chosen = False
-        
-        @staticmethod
-        def choose():
-            nonlocal chosen
-            chosen = True
-        
-        @staticmethod
-        def plus():
-            nonlocal counter
-            counter += 1
-        
-        def minus():
-            nonlocal counter
-            counter -= 1
-        
-        chosen = False
-        
-        def choose(self):
-            self.chosen = True
-        
-        keyboard.add_hotkey('shift', plus)
-        keyboard.add_hotkey('ctrl', minus)
-        keyboard.add_hotkey('enter', choose)
-        '''
+
+        arr_of_strings = ["Current characteristics: "]\
+                         + [self.parameters.get_name(i) + ": " + str(self.parameters.get(i))
+                            for i in range(len(self.parameters.parameter_value))]
+        self.outputer.output_parameters(arr_of_strings)
+
     def perform_selection(self):
-        cprint("You need to choose something", 'cyan')
-        for i in self.next_nodes_outputs:
-            cprint(i, 'cyan')
+        arr_of_strings = ["You need to choose something from the options: "] + self.next_nodes_outputs
+        self.outputer.output_choice(arr_of_strings)
         c = 0
 
         for i in range(10):
             if i == 9:
-                cprint("Maximum number of calls reached.", 'red')
-                cprint("Stay on the choice: " + self.next_nodes_outputs[c % len(self.next_nodes_outputs)], 'red')
+                arr_of_strings = ["Maximum number of calls reached.",
+                                  "Stay on the choice: " + self.next_nodes_outputs[c % len(self.next_nodes_outputs)]]
+                self.outputer.output_error(arr_of_strings)
+                break
             if keyboard.read_key() == 'ctrl':
                 c += 1
-                cprint("Now on choice: " + self.next_nodes_outputs[c % len(self.next_nodes_outputs)], 'green')
+                self.outputer.output_tmp("Now on choice: " + self.next_nodes_outputs[c % len(self.next_nodes_outputs)])
 
             if keyboard.read_key() == 'enter':
                 break
@@ -167,15 +166,14 @@ class State:
         self.node_id = self.next_nodes_ids[c % len(self.next_nodes_outputs)]
 
     def activate_node(self):
-        print("-----------------------------------------------------------------------------------------------")
-        for i in self.node_manager[self.node_id].presentation:
-            cprint(i, 'blue')
-        if len(self.node_manager[self.node_id].action_list) == 0:
+        current_node = self.node_manager.get_node_by_id(self.node_id)
+        self.outputer.output_location(current_node.presentation)
+        if len(current_node.action_list) == 0:
             self.end_of_the_game = True
         self.next_nodes_ids.clear()
         self.next_nodes_outputs.clear()
         self.flag = True
-        for i in self.node_manager[self.node_id].action_list:
+        for i in current_node.action_list:
             if i.action_id == self.action_select:
                 self.add_node(i.first_arg)
                 continue
@@ -208,17 +206,16 @@ class State:
                 continue
             if i.action_id == self.action_lt_unaltered:
                 self.less_unaltered(i.first_arg, i.second_arg)
-        print("-----------------------------------------------------------------------------------------------")
+            if i.action_id == self.action_random:
+                self.randomize(i.first_arg)
         self.show_parameters()
-        print("-----------------------------------------------------------------------------------------------")
         if not self.end_of_the_game:
             self.perform_selection()
-            print("-----------------------------------------------------------------------------------------------")
 
     def start(self):
         for i in range(len(self.parameters.unaltered_parameters_name)):
-            cprint("Choose " + self.parameters.get_unaltered_name(i) + ": ", 'yellow')
-            val = input()
+            self.outputer.output_unaltered("Choose " + self.parameters.get_unaltered_name(i) + ": ")
+            val = self.inputer.input_()
             self.set_unaltered_parameter(i, val)
 
         while not self.end_of_the_game:
