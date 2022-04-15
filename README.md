@@ -7,7 +7,7 @@ To run the quest:
 
 cd Python_quest_MIPT
 git checkout quest
-python3 main.py study_parameters.txt positions.txt
+python3 main.py study_parameters.txt study_quest.txt
 ```
 (for playing a quest about MIPT life)
 \\or 
@@ -15,7 +15,7 @@ python3 main.py study_parameters.txt positions.txt
 
 cd Python_quest_MIPT
 git checkout quest
-python3 main.py parameters_again.txt nodes_again.txt
+python3 main.py rules_parameters.txt rules_quest.txt
 ```
 (for playing a quest with rules explanation)
 \\or
@@ -29,7 +29,7 @@ python3 main.py <my_parameters> <my_position>
 
 ### Installing necessary libraries:
 Make sure you have installed python libraries, which are necessary for running this quest!
-They are 'keyboard','termcolor' and 'random'
+They are 'keyboard','termcolor','random' and 'sys'
 ```
 apt install python3 python3-pip
 apt install python3-termcolor
