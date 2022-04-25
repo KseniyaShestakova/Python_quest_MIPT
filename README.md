@@ -1,4 +1,3 @@
-
 # Quest
 A small console quest. It makes you able to create a console quest with your own scenario writing file with the format similar to the ones presented in parameters_study.txt/ rules_parameters.txt (file with parameter description) and study_quest.txt / rules_quest.txt (file with the description of positions) 
 
@@ -46,4 +45,3 @@ You can choose the right option in this quest pressing Ctrl and confirm your cho
 ### Example
 ![Screenshot from 2022-04-15 11-43-45](https://user-images.githubusercontent.com/91065721/163548416-7ab0d810-2cf1-4020-953a-90259cfa807c.png)
 ![Screenshot from 2022-04-15 11-46-51](https://user-images.githubusercontent.com/91065721/163548875-d342edba-7ae2-4e30-953b-e600a50ca003.png)
-
