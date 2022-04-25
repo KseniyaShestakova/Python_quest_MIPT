@@ -1,0 +1,171 @@
+0
+text:Today is the first day of studies. What should I spend it for?
+next:1:I would go on the meeting with classmates and first lecture
+next:2:I will stay at home
+
+&1
+text:The first day of studies passed successfully
+action:relationship_with_classmates + 10
+action:mathematics + 10
+action:programming + 10
+next:3:Have rest before the next day
+
+&2
+text:I chilled out with neighbours. It was great!
+action:relationship_with_neighbours + 10
+next:3:Have rest before the next day
+
+&3
+text:I need to do my first homework. What should I start with?
+next:4:Programming
+next:5:Mathematics for sure
+optional:6:mathematics > 5:programming > 5:Try doing both
+
+&4
+text:There are some problems with math. What will I do?
+action:programming = 10
+optional:7:relationship_with_classmates >= 10:Ask classmates for help
+optional:7:relationship_with_neighbours >= 10:Ask neighbours for help
+next:8:Work out everything by yourself
+next:9:I'll do it the next time
+random:6:2:The God of random wants to save me! Receive his help
+
+&5
+text:There are some problems with programming. What should I do?
+action:mathematics + 10
+optional:7:relationship_with_classmates > 5:Ask classmates for help
+optional:7:relationship_with_neighbours > 5:Ask neighbours for help
+next:8:Work out everything by yourself
+next:9:I'll do it the next time
+random:6:2:The God of random wants to save me! Receive his help
+
+
+&6
+text:I like that feeling of freedom when everything is ready.
+action:mathematics + 10
+action:programming + 10
+next:10:Enjoy the moment
+
+&7
+text:I'm happy to have somebody who can help me.
+action:mathematics = 15
+action:programming = 15
+next:10:Enjoy the moment
+
+&8
+action:mental_health - 5
+action:health - 5
+text:Oh well, one night without sleeping and all the lessons are done!
+action:mathematics = 20
+action:programming = 20
+next:10:Enjoy the moment
+
+&9
+action:mental_health - 5
+action:health - 5
+text:It wasn't the best idea to do everything at the last moment...
+next:10:Finish lessons, drinking coffee with your tears
+
+&10
+text:Compare your results with the best possible ones
+text:relationship with classmates - 10
+text:relationship_with_neighbours - 10
+text:mathematics - 20
+text:programming - 20
+text:Today is a day of. How will I spend it?
+next:11:Sleep all day long
+next:15:Study all day long
+next:12:Try to finish a part of work and have rest after that
+optional:13:age >= 18:Attend the holiday dedicated to the Birthday of the University
+random:14:2:Spend time with that cute boy(girl, as you want) who suggested you to go for a walk with him(her)
+
+&11
+text:Having rest is certainly helpful for your health
+action:health + 10
+action:mental_health + 10
+next:16:Start preparing for the exams
+next:17:Chat with neighbours and classmates and start learning after that
+next:18:Chill again
+
+&12
+text:I liked the weekend, but the exams are coming. What should I do?
+action:mathematics + 5
+action:programming + 5
+next:16:Start preparing for the exams
+next:17:Chat with neighbours and classmates and start learning after that
+next:18:Chill
+
+&13
+text:The holiday was great!
+action:mental_health + 10
+action:relationship_with_neighbours + 10
+action:relationship_with_classmates + 10
+next:16:Start preparing for the exams
+next:17:Chat with neighbours and classmates and start learning after that
+next:18:Chill again
+
+&14
+text:This date was strange a bit, but I liked it.
+text:The exams are coming, what will I do?
+action:mental_health + 10
+action:friendship + 20
+next:16:Start preparing for the exams
+next:17:Chat with neighbours and classmates and start learning after that
+next:18:Chill
+
+&15
+text:Well, it was a really difficult day
+action:mental_health - 5
+action:health - 5
+action:mathematics + 10
+action:programming + 10
+next:16:Start preparing for the exams
+next:17:Chat with neighbours and classmates and start learning after that
+next:18:Chill
+
+&16
+text:Preparing for the exams was certainly a right decision
+action:mathematics + 10
+action:programming + 10
+optional:19:mental_health > 10:Go to the exam
+optional:20:mental_health <= 10:Unfortunately, I feel too anxious and can't go to the exam
+
+&17
+text:OK, I tried to get ready fo the exam at least
+action:mathematics + 5
+action:programming + 5
+optional:19:mental_health > 10:Go to the exam
+optional:20:mental_health <= 10:Unfortunately, I feel too anxious and can't go to the exam
+
+&18:
+text:MMm, maybe I shouldn't think only about entertaining myself
+optional:19:mental_health > 10:Go to the exam
+optional:20:mental_health <= 10:Unfortunately, I feel too anxious and can't go to the exam
+
+&19:
+text:Here we come to the exam
+optional:21:mathematics > 25:programming >= 25:Enjoy the moment of passing the exams excellently
+optional:21:mathematics > 25:programming < 25:programming > 10:Mathematics is passed excellently, but maybe I had to think more about programming
+optional:21:programming > 25:mathematics < 25:mathematics > 10:Mathematics is passed excellently, but maybe I had to think more about programming
+optional:21:mathematics <= 25:mathematics > 10:programming <= 25:programming > 10:OK, I passed the exams somehow
+optional:22:mathematics <= 10:Oh no, I wasn't ready for my math exam...
+optional:22:programming <= 10:Oh no, I wasn't ready for my exam on programming...
+
+&20:
+text:I should think more about my mental health...
+text:Unfortunately, I need to take academical leave
+
+&21:
+text:The exams are left behind. What should I do now?
+next:23:Spend time enjoying my hobby
+optional:23:relationship_with_neighbours > 10:Spend time with neighbours
+optional:23:relationship_with_classmates > 10:Spend time with classmates
+optional:23:relationship_with_neighbours <= 10:relationship_with_classmates <= 10:friendship < 5:Spend time regretting not communicating with anyone
+optional:23:friendship >= 5:Spend time with that cute boy(girl) again
+
+&22
+text:Maybe the next time I will do better.
+text:Unfortunately, now I drop out
+
+&23:
+text:You passed the game successfully. Congratulations!

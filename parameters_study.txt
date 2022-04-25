@@ -1,0 +1,10 @@
+mathematics 0
+programming 0
+relationship_with_neighbours 0
+relationship_with_classmates 0
+health 20
+mental_health 20
+friendship 0
+*
+name ""
+age 16
