@@ -6,8 +6,8 @@ import sys
 # ожидается ввод типа <name of the file> <path_to_parameters> <path_to_nodes>
 # вязанные файлы, указанные в импортах сверху, должны лежать в той же папке
 parser = Parser()
-state = parser.parse('parameters_study.txt', 'study_quest.txt')
-# state = parser.parse('rules_parameters.txt', 'rules_quest.txt')
+# state = parser.parse('parameters_study.txt', 'study_quest.txt')
+state = parser.parse('rules_parameters.txt', 'rules_quest.txt')
 
 app = Flask(__name__)
 

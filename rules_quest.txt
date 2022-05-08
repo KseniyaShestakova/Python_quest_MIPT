@@ -7,15 +7,13 @@ next:3:I need to wait a bit before we start...
 &1
 text:Here we go
 text:It is a simple console quest
-text:You can choose the right option, pressing Ctrl
-text:and confirm it pressing Enter
+text:You can choose the right option, pressing a button
 next:4:Got it!
 next:5:Need repeating...
 
 &2
 text:It is a serious console quest
-text:You can choose the right option, pressing Ctrl
-text:and confirm it pressing Enter
+text:You can choose the right option, pressing a button
 next:4:I understand it.
 next:6:Oh no, too difficult for me
 
@@ -31,8 +29,7 @@ text:Congratulations! You can start playing other quests
 &5
 text:Here we go again
 text:It is a simple console quest
-text:You can choose the right option, pressing Ctrl
-text:and confirm it pressing Enter
+text:You can choose the right option, pressing a button
 action:number_of_explanations + 1
 optional:5:number_of_explanations < 10:Repeat!!!
 optional:7:number_of_explanations >= 10:Repeat!!!
@@ -41,8 +38,7 @@ next:4:I got it
 &6:
 text:Here we go again
 text:It is a simple console quest
-text:You can choose the right option, pressing Ctrl
-text:and confirm it pressing Enter
+text:You can choose the right option, pressing a button
 action:number_of_explanations + 1
 optional:6:number_of_explanations < 10:Repeat, please
 optional:7:number_of_explanations >= 10:Repeat, please
