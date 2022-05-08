@@ -1,6 +1,4 @@
-import keyboard
 import random
-from interface import *
 
 
 class NodeManager:
@@ -75,6 +73,24 @@ class Node:
 
 
 class State:
+    html_string = ""
+    classical_beginning = '''
+<!DOCTYPE HTML>
+
+<HTML>
+	<head>
+		<title>Beautiful page</title>
+		<meta http-equiv="content-type" content="text/HTML" charset="UTF-8"/>
+	</head>
+	<body style="background-color: #eaaf9d">
+	<center>
+'''
+    classical_end = '''
+    </center>
+	</body>
+</HTML>
+'''
+
     flag = True
     parameters = Parameters([], [], [], [])
     node_id = 0
@@ -94,9 +110,6 @@ class State:
     action_gt_unaltered = 8
     action_lt_unaltered = 9
     action_random = 10
-
-    outputer = Outputer()
-    inputer = Inputer()
 
     def __init__(self, parameters_, node_id_, next_nodes_ids, next_nodes_outputs_, node_manager_):
         self.parameters = parameters_
@@ -121,10 +134,16 @@ class State:
         self.flag = (self.flag and self.parameters.get(parameter_id) < val)
 
     def greater_unaltered(self, parameter_id, val):
-        self.flag = (self.flag and int(self.parameters.get_unaltered(parameter_id)) > val)
+        try:
+            self.flag = (self.flag and int(self.parameters.get_unaltered(parameter_id)) > val)
+        except ValueError:
+            self.flag = False
 
     def less_unaltered(self, parameter_id, val):
-        self.flag = (self.flag and int(self.parameters.get_unaltered(parameter_id)) < val)
+        try:
+            self.flag = (self.flag and int(self.parameters.get_unaltered(parameter_id)) < val)
+        except ValueError:
+            self.flag = False
 
     def add_node(self, node_identifier):
         current_node = self.node_manager.get_node_by_id(self.node_id)
@@ -139,35 +158,33 @@ class State:
             self.flag = False
 
     def show_parameters(self):
-
-        arr_of_strings = ["Current characteristics: "]\
-                         + [self.parameters.get_name(i) + ": " + str(self.parameters.get(i))
-                            for i in range(len(self.parameters.parameter_value))]
-        self.outputer.output_parameters(arr_of_strings)
+        self.html_string += '\n' + "<div style=\"border: 5px solid #f38b58; background-color: #f5e2a7\">"
+        self.html_string += '\n' + "<p>Current characteristics: </p>"
+        for i in range(len(self.parameters.parameter_value)):
+            self.html_string += ('\n' + "<p>" + self.parameters.get_name(i) + ": " + str(self.parameters.get(i)) + "</p>")
+        self.html_string += '\n' + "</div>"
 
     def perform_selection(self):
-        arr_of_strings = ["You need to choose something from the options: "] + self.next_nodes_outputs
-        self.outputer.output_choice(arr_of_strings)
-        c = 0
-
-        for i in range(10):
-            if i == 9:
-                arr_of_strings = ["Maximum number of calls reached.",
-                                  "Stay on the choice: " + self.next_nodes_outputs[c % len(self.next_nodes_outputs)]]
-                self.outputer.output_error(arr_of_strings)
-                break
-            if keyboard.read_key() == 'ctrl':
-                c += 1
-                self.outputer.output_tmp("Now on choice: " + self.next_nodes_outputs[c % len(self.next_nodes_outputs)])
-
-            if keyboard.read_key() == 'enter':
-                break
-
-        self.node_id = self.next_nodes_ids[c % len(self.next_nodes_outputs)]
+        self.html_string += '\n' + "<form method=\"post\" action=\"/api/\" style=\"\">"
+        for i in range(len(self.next_nodes_outputs)):
+            self.html_string += "<p>\n</p>"
+            self.html_string += "<input type=\"submit\" value=\"" + self.next_nodes_outputs[i] + \
+                                "\" name=\"" + str(i) + "\" style=\"height:50px; font-size:25px; \
+                                                        background-color: #ef844e; \
+                                                        border: none\
+                                                        -webkit-border-radius: 20px; \
+                                                        border-radius: 20px\"/>"
 
     def activate_node(self):
         current_node = self.node_manager.get_node_by_id(self.node_id)
-        self.outputer.output_location(current_node.presentation)
+        self.html_string = ""
+        self.html_string += self.classical_beginning
+
+        for i in range(len(current_node.presentation)):
+            self.html_string += ('\n' + "<div style=\"background-color: #ef844e; font-size: 30px; \
+                                        border: 5px solid #ef6722\" \
+                                        >" + current_node.presentation[i] + "</div>")
+
         if len(current_node.action_list) == 0:
             self.end_of_the_game = True
         self.next_nodes_ids.clear()
@@ -212,11 +229,31 @@ class State:
         if not self.end_of_the_game:
             self.perform_selection()
 
-    def start(self):
-        for i in range(len(self.parameters.unaltered_parameters_name)):
-            self.outputer.output_unaltered("Choose " + self.parameters.get_unaltered_name(i) + ": ")
-            val = self.inputer.input_()
-            self.set_unaltered_parameter(i, val)
+        self.html_string += ('\n' + self.classical_end)
 
-        while not self.end_of_the_game:
-            self.activate_node()
+    def form_for_unaltered(self):
+        self.html_string = '''<HTML>
+	<head>
+		<title>Beautiful page</title>
+		<meta http-equiv="content-type" content="text/HTML" charset="UTF-8"/>
+	</head>
+<body style="background-color: paleturquoise">
+<center>
+     <form method = 'POST' action = '/api/' size=\"100\">'''
+        for i in range(len(self.parameters.unaltered_parameters_name)):
+            self.html_string += '\n' + "<label style=\"font-size:25px\" for=\"" + self.parameters.get_unaltered_name(i) + \
+                                "\">" + self.parameters.get_unaltered_name(i) + "</label><br>"
+            self.html_string += '\n' + "<input type=\"text\" id=\"" + self.parameters.get_unaltered_name(i) + \
+                                "\" name=\"" + self.parameters.get_unaltered_name(i) + \
+                                "\" style=\"height:40px; width:500px; font-size:25px\"" + "\"><br>"
+        self.html_string += '''
+        <input type="submit" value="Submit" style="height:50px; width:100px; font-size:25px;
+         background-color: lightskyblue; color: darkslateblue">
+</form>
+</center>
+</body>'''
+
+
+
+
+
