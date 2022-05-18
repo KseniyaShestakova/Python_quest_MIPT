@@ -6,42 +6,20 @@ To run the quest:
 ```
 git clone git@github.com:KseniyaShestakova/Python_quest_MIPT.git
 cd Python_quest_MIPT/
-git checkout quest
-python3 main.py parameters_study.txt study_quest.txt
+git checkout web_quest
+flask run
 ```
-(for playing a quest about MIPT life)
-or 
-```
-cd Python_quest_MIPT/
-git checkout quest
-python3 main.py rules_parameters.txt rules_quest.txt
-```
-(for playing a quest with rules explanation)
-or
-```
-cd Python_quest_MIPT/
-git checkout quest
-python3 main.py <my_parameters> <my_position>
-```
-(if you have your own file with parameters and positions)
-
 ### Installing necessary libraries:
 Make sure you have installed python libraries, which are necessary for running this quest!
-They are 'keyboard','termcolor','random' and 'sys'
+They are 'random' and 'sys'. You also need installing Flask
 ```
 apt install python3 python3-pip
-apt install python3-termcolor
-pip3 install keyboard
 pip3 install random
 pip install os-sys
+pip install Flask
 ```
-Note: if you write 'sudo' before installing one of this libraries you should execute the project with 'sudo' also:
-```
-sudo python3 main.py <parameters> <position>
-```
-### Something about playing the quest
-You can choose the right option in this quest pressing Ctrl and confirm your choice pressing Enter!
+Note: if you write 'sudo' before installing one of this libraries you should execute the project with 'sudo' also.
 
-### Example
-![Screenshot from 2022-04-15 11-43-45](https://user-images.githubusercontent.com/91065721/163548416-7ab0d810-2cf1-4020-953a-90259cfa807c.png)
-![Screenshot from 2022-04-15 11-46-51](https://user-images.githubusercontent.com/91065721/163548875-d342edba-7ae2-4e30-953b-e600a50ca003.png)
+
+### Something about playing the quest
+Playing is intuitive in web version
